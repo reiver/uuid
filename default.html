@@ -101,7 +101,7 @@ Maybe within a variable in memory.
 Etc.
 		</p>
 		<p>
-There are //better// and //worse// ways of storing a <strong>UUID</strong>, in terms of the amount of storage space used.
+There are <em>better</em> and <em>worse</em> ways of storing a <strong>UUID</strong>, in terms of the amount of storage space used.
 		</p>
 		<p>
 Some will, for example, naively store the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
@@ -131,7 +131,7 @@ But it would be much better to store it as:
 			</pre>
 		</figure>
 		<p>
-In terms of storage space, the latter is //better// than the former (since the latter uses less storage space).
+In terms of storage space, the latter is <em>better</em> than the former (since the latter uses less storage space).
 		</p>
 		<p>
 (Notice that the pieces of the latter representation looks like the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.)
@@ -140,7 +140,7 @@ In terms of storage space, the latter is //better// than the former (since the l
 Let's dig into this to better understand it.
 		</p>
 		<p>
-The //naive// way to store a <strong>UUID</strong> is to store it as a //string//.
+The <em>naive</em> way to store a <strong>UUID</strong> is to store it as a <em>string</em>.
 In many programming-languages, this would be written as:
 		</p>
 		<figure>
@@ -150,7 +150,7 @@ In many programming-languages, this would be written as:
 		</figure>
 		<p>
 At first, this looks reasonable.
-But, this is //not// a desirable way of storing a <strong>UUIID</strong>, in terms of storage space.
+But, this is <em>not</em> a desirable way of storing a <strong>UUIID</strong>, in terms of storage space.
 		</p>
 		<p>
 (Ignoring possible null-terminators and length-prefixes) this is (roughly) equivalent to this <strong>array</strong>:
@@ -197,7 +197,7 @@ Or (as we saw before) is:
 This is using <strong>36 bytes</strong> to store <strong>16 bytes</strong> of data!
 		</p>
 		<p>
-Why is this happening‽ — the problem is that when a <strong>UUID</strong> literal is stored as a <strong>string</strong> it is //implicitly// encoding the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
+Why is this happening‽ — the problem is that when a <strong>UUID</strong> literal is stored as a <strong>string</strong> it is <em>implicitly</em> encoding the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
 		</p>
 		<p>
 How can we do better‽ — we don't do this (implicy) encoding of the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
@@ -242,7 +242,7 @@ ea 35 42 7e c3 9f 11 ec 9d 64 02 42 ac 12 00 02
 		</figure>
 		<p>
 			Notice how much shorter this <strong>array</strong> is.
-			Also notice that the bytes in this <strong>array</strong> as just //pairs of characters// from the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
+			Also notice that the bytes in this <strong>array</strong> as just <em>pairs of characters</em> from the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
 		</p>
 		<p>
 			For completeness, the <strong>array</strong> is this:
@@ -254,10 +254,10 @@ ea 35 42 7e c3 9f 11 ec
 			</pre>
 		</figure>
 		<p>
-			This is a (relatively) //better// way of storing a <strong>UUID</strong>, in terms of storage space.
+			This is a (relatively) <em>better</em> way of storing a <strong>UUID</strong>, in terms of storage space.
 		</p>
 		<p>
-			Just to //drive-this-point-home//, here are more examples —
+			Just to <em>drive-this-point-home</em>, here are more examples —
 		</p>
 		<p>
 			In the following table you can compare each of the example <strong><abbr title="universally unique identifier">UUID</abbr></strong>s, with their hexadecimal equivalent, and then compare that to the 16 bytes that they are made of.
