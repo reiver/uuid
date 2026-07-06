@@ -92,25 +92,25 @@
 	<section>
 		<h1>Storage</h1>
 		<p>
-Sometimes [[computer-software]] will need to store a <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
+			Sometimes [[computer-software]] will need to store a <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
 		</p>
 		<p>
-Maybe within a file.
-Maybe within a database.
-Maybe within a variable in memory.
-Etc.
+			Maybe within a file.
+			Maybe within a database.
+			Maybe within a variable in memory.
+			Etc.
 		</p>
 		<p>
-There are <em>better</em> and <em>worse</em> ways of storing a <strong>UUID</strong>, in terms of the amount of storage space used.
+			There are <em>better</em> and <em>worse</em> ways of storing a <strong>UUID</strong>, in terms of the amount of storage space used.
 		</p>
 		<p>
-Some will, for example, naively store the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
+			Some will, for example, naively store the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
 		</p>
 		<p>
 <code>ea35427e-c39f-11ec-9d64-0242ac120002</code>
 		</p>
 		<p>
-As this:
+			As this:
 		</p>
 		<figure>
 			<pre>
@@ -122,7 +122,7 @@ As this:
 			</pre>
 		</figure>
 		<p>
-But it would be much better to store it as:
+			But it would be much better to store it as:
 		</p>
 		<figure>
 			<pre>
@@ -131,17 +131,17 @@ But it would be much better to store it as:
 			</pre>
 		</figure>
 		<p>
-In terms of storage space, the latter is <em>better</em> than the former (since the latter uses less storage space).
+			In terms of storage space, the latter is <em>better</em> than the former (since the latter uses less storage space).
 		</p>
 		<p>
-(Notice that the pieces of the latter representation looks like the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.)
+			(Notice that the pieces of the latter representation looks like the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.)
 		</p>
 		<p>
-Let's dig into this to better understand it.
+			Let's dig into this to better understand it.
 		</p>
 		<p>
-The <em>naive</em> way to store a <strong>UUID</strong> is to store it as a <em>string</em>.
-In many programming-languages, this would be written as:
+			The <em>naive</em> way to store a <strong>UUID</strong> is to store it as a <em>string</em>.
+			In many programming-languages, this would be written as:
 		</p>
 		<figure>
 			<pre><code>
@@ -149,11 +149,11 @@ In many programming-languages, this would be written as:
 			</code></pre>
 		</figure>
 		<p>
-At first, this looks reasonable.
-But, this is <em>not</em> a desirable way of storing a <strong>UUIID</strong>, in terms of storage space.
+			At first, this looks reasonable.
+			But, this is <em>not</em> a desirable way of storing a <strong>UUID</strong>, in terms of storage space.
 		</p>
 		<p>
-(Ignoring possible null-terminators and length-prefixes) this is (roughly) equivalent to this <strong>array</strong>:
+			(Ignoring possible null-terminators and length-prefixes) this is (roughly) equivalent to this <strong>array</strong>:
 		</p>
 		<figure>
 			<pre><code>
@@ -167,7 +167,7 @@ But, this is <em>not</em> a desirable way of storing a <strong>UUIID</strong>, i
 			</code></pre>
 		</figure>
 		<p>
-Which is the same as this (equivalent) <strong>array</strong>:
+			Which is the same as this (equivalent) <strong>array</strong>:
 		</p>
 		<figure>
 			<pre><code>
@@ -181,7 +181,7 @@ Which is the same as this (equivalent) <strong>array</strong>:
 			</code></pre>
 		</figure>
 		<p>
-Or (as we saw before) is:
+			Or (as we saw before) is:
 		</p>
 
 		<figure>
@@ -194,19 +194,19 @@ Or (as we saw before) is:
 			</pre>
 		</figure>
 		<p>
-This is using <strong>36 bytes</strong> to store <strong>16 bytes</strong> of data!
+			This is using <strong>36 bytes</strong> to store <strong>16 bytes</strong> of data!
 		</p>
 		<p>
-Why is this happening‽ — the problem is that when a <strong>UUID</strong> literal is stored as a <strong>string</strong> it is <em>implicitly</em> encoding the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
+			Why is this happening‽ — the problem is that when a <strong>UUID</strong> literal is stored as a <strong>string</strong> it is <em>implicitly</em> encoding the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
 		</p>
 		<p>
-How can we do better‽ — we don't do this (implicy) encoding of the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
+			How can we do better‽ — we don't do this (implicy) encoding of the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
 		</p>
 		<p>
-Conceptually, think of it this way —
+			Conceptually, think of it this way —
 		</p>
 		<p>
-Take the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
+			Take the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
 		</p>
 		<figure>
 			<pre>
