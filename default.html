@@ -142,15 +142,21 @@ Let's dig into this to better understand it.
 		<p>
 The //naive// way to store a <strong>UUID</strong> is to store it as a //string//.
 In many programming-languages, this would be written as:
-
+		</p>
+		<figure>
+			<pre><code>
 	"ea35427e-c39f-11ec-9d64-0242ac120002"
-
+			</code></pre>
+		</figure>
+		<p>
 At first, this looks reasonable.
 But, this is //not// a desirable way of storing a <strong>UUIID</strong>, in terms of storage space.
 		</p>
 		<p>
 (Ignoring possible null-terminators and length-prefixes) this is (roughly) equivalent to this <strong>array</strong>:
-
+		</p>
+		<figure>
+			<pre><code>
 	[36]byte{
 		byte('e'), byte('a'), byte('3'), byte('5'), byte('4'), byte('2'), byte('7'), byte('e'),
 		byte('-'), byte('c'), byte('3'), byte('9'), byte('f'), byte('-'), byte('1'), byte('1'),
@@ -158,9 +164,13 @@ But, this is //not// a desirable way of storing a <strong>UUIID</strong>, in ter
 		byte('0'), byte('2'), byte('4'), byte('2'), byte('a'), byte('c'), byte('1'), byte('2'),
 		byte('0'), byte('0'), byte('0'), byte('2'),
 	}
-
+			</code></pre>
+		</figure>
+		<p>
 Which is the same as this (equivalent) <strong>array</strong>:
-
+		</p>
+		<figure>
+			<pre><code>
 	[36]byte{
 		0x65, 0x61, 0x33, 0x35, 0x34, 0x32, 0x37, 0x65,
 		0x2d, 0x63, 0x33, 0x39, 0x66, 0x2d, 0x31, 0x31,
@@ -168,75 +178,89 @@ Which is the same as this (equivalent) <strong>array</strong>:
 		0x30, 0x32, 0x34, 0x32, 0x61, 0x63, 0x31, 0x32,
 		0x30, 0x30, 0x30, 0x32,
 	}
-
+			</code></pre>
+		</figure>
+		<p>
 Or (as we saw before) is:
+		</p>
 
+		<figure>
+			<pre>
 	65 61 33 35 34 32 37 65
 	2d 63 33 39 66 2d 31 31
 	65 63 2d 39 64 36 34 2d
 	30 32 34 32 61 63 31 32
 	30 30 30 32
-
+			</pre>
+		</figure>
+		<p>
 This is using <strong>36 bytes</strong> to store <strong>16 bytes</strong> of data!
-
+		</p>
+		<p>
 Why is this happening‽ — the problem is that when a <strong>UUID</strong> literal is stored as a <strong>string</strong> it is //implicitly// encoding the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
-
+		</p>
+		<p>
 How can we do better‽ — we don't do this (implicy) encoding of the <strong>UUID</strong> in <a href="/ascii/"><abbr>ASCII</abbr></a> / [[unicode]] [[utf-8]].
-
+		</p>
+		<p>
 Conceptually, think of it this way —
-
+		</p>
+		<p>
 Take the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
-
-	ea35427e-c39f-11ec-9d64-0242ac120002
-
-		<p>
-Discard the hyphens:
 		</p>
 		<figure>
 			<pre>
-	ea35427ec39f11ec9d640242ac120002
+ea35427e-c39f-11ec-9d64-0242ac120002
 			</pre>
 		</figure>
 		<p>
-Separate it into bytes:
+			Discard the hyphens:
 		</p>
 		<figure>
 			<pre>
-	ea 35 42 7e c3 9f 11 ec 9d 64 02 42 ac 12 00 02
+ea35427ec39f11ec9d640242ac120002
 			</pre>
 		</figure>
 		<p>
-As an <strong>array</strong> in a programming-language, this series of bytes is this <strong>array</strong>:
+			Separate it into bytes:
+		</p>
+		<figure>
+			<pre>
+ea 35 42 7e c3 9f 11 ec 9d 64 02 42 ac 12 00 02
+			</pre>
+		</figure>
+		<p>
+			As an <strong>array</strong> in a programming-language, this series of bytes is this <strong>array</strong>:
 		</p>
 		<figure>
 			<pre><code>
-	[16]byte{
-		0xea, 0x35, 0x42, 0x7e, 0xc3, 0x9f, 0x11, 0xec,
-		0x9d, 0x64, 0x02, 0x42, 0xac, 0x12, 0x00, 0x02,
-	}
+[16]byte{
+	0xea, 0x35, 0x42, 0x7e, 0xc3, 0x9f, 0x11, 0xec,
+	0x9d, 0x64, 0x02, 0x42, 0xac, 0x12, 0x00, 0x02,
+}
 			</code></pre>
 		</figure>
 		<p>
-Notice how much shorter this <strong>array</strong> is.
-Also notice that the bytes in this <strong>array</strong> as just //pairs of characters// from the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
+			Notice how much shorter this <strong>array</strong> is.
+			Also notice that the bytes in this <strong>array</strong> as just //pairs of characters// from the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
 		</p>
 		<p>
-For completeness, the <strong>array</strong> is this:
+			For completeness, the <strong>array</strong> is this:
 		</p>
 		<figure>
 			<pre>
-	ea 35 42 7e c3 9f 11 ec
-	9d 64 02 42 ac 12 00 02
+ea 35 42 7e c3 9f 11 ec
+9d 64 02 42 ac 12 00 02
 			</pre>
 		</figure>
 		<p>
-This is a (relatively) //better// way of storing a <strong>UUID</strong>, in terms of storage space.
+			This is a (relatively) //better// way of storing a <strong>UUID</strong>, in terms of storage space.
 		</p>
 		<p>
-Just to //drive-this-point-home//, here are more examples —
+			Just to //drive-this-point-home//, here are more examples —
 		</p>
 		<p>
-In the following table you can compare each of the example <strong><abbr title="universally unique identifier">UUID</abbr></strong>s, with their hexadecimal equivalent, and then compare that to the 16 bytes that they are made of.
+			In the following table you can compare each of the example <strong><abbr title="universally unique identifier">UUID</abbr></strong>s, with their hexadecimal equivalent, and then compare that to the 16 bytes that they are made of.
 		</p>
 		<figure>
 			<pre>
