@@ -31,28 +31,47 @@
 	</header>
 	<p>
 		<strong><abbr title="universally unique identifier">UUID</abbr></strong>, short for <strong>universally unique identifier</strong>, is a popular convention for creating [[unique-identifier]]s (<strong>unique IDs</strong>).
-
-Often, when <strong>UUID</strong>s are written, they look like these:
-
-• ``31905b9b-b1fa-4086-bcb9-bda8502a0958``
-• ``19077f38-5498-46a6-844d-f494086b8ca1``
-• ``e50c17c0-c9b0-11ec-9d64-0242ac120002``
-• ``49b1ca0e-d78f-55f3-8d58-197bac044ebb``
-• ``c8f0d7ec-9987-9f17-a7a4-a57f3318fb0e``
-
-I.e., a 128-bit number encoded in [[hexadecimal]], with 32 hexadecimal symbols, with hyphens inserted in certain specific places.
-
-(Although, don't confuse <strong><abbr title="universally unique identifier">UUID</abbr></strong>s with the <strong>GUID</strong>s that were popularized by Microsoft.
-They look very very very similar to each other, but are //not// the same thing.)
-
-§§ 128 Bits
-
-Each of these <strong><abbr title="universally unique identifier">UUID</abbr></strong>s is really just <strong>128-bits</strong> of data.
-
-Which, if you are dealing with [[8-bit-byte]]s (as most computers have nowadays) then ⁠— each of these <strong><abbr title="universally unique identifier">UUID</abbr></strong>s is really just <strong>16 bytes</strong> of data.
-
-You could equally write a <strong>UUID</strong> such as ``ea35427e-c39f-11ec-9d64-0242ac120002`` as the following:
-
+	</p>
+	<p>
+		Often, when <strong><abbr title="universally unique identifier">UUID</abbr></strong>s are written, they look like these:
+	</p>
+	<ul>
+		<li>
+			<code>31905b9b-b1fa-4086-bcb9-bda8502a0958</code>
+		</li>
+		<li>
+			<code>19077f38-5498-46a6-844d-f494086b8ca1</code>
+		</li>
+		<li>
+			<code>e50c17c0-c9b0-11ec-9d64-0242ac120002</code>
+		</li>
+		<li>
+			<code>49b1ca0e-d78f-55f3-8d58-197bac044ebb</code>
+		</li>
+		<li>
+			<code>c8f0d7ec-9987-9f17-a7a4-a57f3318fb0e</code>
+		</li>
+	</ul>
+	<p>
+		I.e., a 128-bit number encoded in [[hexadecimal]], with 32 hexadecimal symbols, with hyphens inserted in certain specific places.
+	</p>
+	<p>
+		(Although, don't confuse <strong><abbr title="universally unique identifier">UUID</abbr></strong>s with the <strong>GUID</strong>s that were popularized by Microsoft.
+		They look very very very similar to each other, but are <em>not</em> the same thing.)
+	</p>
+	<section>
+		<h1>128 Bits</h1>
+		<p>
+			Each of these <strong><abbr title="universally unique identifier">UUID</abbr></strong>s is really just <strong>128-bits</strong> of data.
+		</p>
+		<p>
+			Which, if you are dealing with [[8-bit-byte]]s (as most computers have nowadays) then ⁠— each of these <strong><abbr title="universally unique identifier">UUID</abbr></strong>s is really just <strong>16 bytes</strong> of data.
+		</p>
+		<p>
+			You could equally write a <strong><abbr title="universally unique identifier">UUID</abbr></strong> such as <code>ea35427e-c39f-11ec-9d64-0242ac120002</code> as the following:
+		</p>
+		<figure>
+			<pre>
 	┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 	┃ Type                ┃ Value                                                                                                                              ┃
 	┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
@@ -67,7 +86,9 @@ You could equally write a <strong>UUID</strong> such as ``ea35427e-c39f-11ec-9d6
 	│ base64url           │ 6jVCfsOfEeydZAJCrBIAAg                                                                                                             │
 	│ ascii85             │ l8:nW_k.P-SR_dgX:bL7                                                                                                               │
 	└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-
+			</pre>
+		</figure>
+	<section>
 §§ Storage
 
 Sometimes [[computer-software]] will need to store a <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
