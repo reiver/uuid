@@ -88,41 +88,58 @@
 	└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 			</pre>
 		</figure>
+	</section>
 	<section>
-§§ Storage
-
+		<h1>Storage</h1>
+		<p>
 Sometimes [[computer-software]] will need to store a <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
-
+		</p>
+		<p>
 Maybe within a file.
 Maybe within a database.
 Maybe within a variable in memory.
 Etc.
-
+		</p>
+		<p>
 There are //better// and //worse// ways of storing a <strong>UUID</strong>, in terms of the amount of storage space used.
-
+		</p>
+		<p>
 Some will, for example, naively store the <strong><abbr title="universally unique identifier">UUID</abbr></strong>:
-
-ea35427e-c39f-11ec-9d64-0242ac120002
-
+		</p>
+		<p>
+<code>ea35427e-c39f-11ec-9d64-0242ac120002</code>
+		</p>
+		<p>
 As this:
-
+		</p>
+		<figure>
+			<pre>
 	65 61 33 35 34 32 37 65
 	2d 63 33 39 66 2d 31 31
 	65 63 2d 39 64 36 34 2d
 	30 32 34 32 61 63 31 32
 	30 30 30 32
-
+			</pre>
+		</figure>
+		<p>
 But it would be much better to store it as:
-
+		</p>
+		<figure>
+			<pre>
 	ea 35 42 7e c3 9f 11 ec
 	9d 64 02 42 ac 12 00 02
-
+			</pre>
+		</figure>
+		<p>
 In terms of storage space, the latter is //better// than the former (since the latter uses less storage space).
-
+		</p>
+		<p>
 (Notice that the pieces of the latter representation looks like the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.)
-
+		</p>
+		<p>
 Let's dig into this to better understand it.
-
+		</p>
+		<p>
 The //naive// way to store a <strong>UUID</strong> is to store it as a //string//.
 In many programming-languages, this would be written as:
 
@@ -130,7 +147,8 @@ In many programming-languages, this would be written as:
 
 At first, this looks reasonable.
 But, this is //not// a desirable way of storing a <strong>UUIID</strong>, in terms of storage space.
-
+		</p>
+		<p>
 (Ignoring possible null-terminators and length-prefixes) this is (roughly) equivalent to this <strong>array</strong>:
 
 	[36]byte{
@@ -171,35 +189,57 @@ Take the <strong><abbr title="universally unique identifier">UUID</abbr></strong
 
 	ea35427e-c39f-11ec-9d64-0242ac120002
 
+		<p>
 Discard the hyphens:
-
+		</p>
+		<figure>
+			<pre>
 	ea35427ec39f11ec9d640242ac120002
-
+			</pre>
+		</figure>
+		<p>
 Separate it into bytes:
-
+		</p>
+		<figure>
+			<pre>
 	ea 35 42 7e c3 9f 11 ec 9d 64 02 42 ac 12 00 02
-
+			</pre>
+		</figure>
+		<p>
 As an <strong>array</strong> in a programming-language, this series of bytes is this <strong>array</strong>:
-
+		</p>
+		<figure>
+			<pre><code>
 	[16]byte{
 		0xea, 0x35, 0x42, 0x7e, 0xc3, 0x9f, 0x11, 0xec,
 		0x9d, 0x64, 0x02, 0x42, 0xac, 0x12, 0x00, 0x02,
 	}
-
+			</code></pre>
+		</figure>
+		<p>
 Notice how much shorter this <strong>array</strong> is.
 Also notice that the bytes in this <strong>array</strong> as just //pairs of characters// from the <strong><abbr title="universally unique identifier">UUID</abbr></strong>.
-
+		</p>
+		<p>
 For completeness, the <strong>array</strong> is this:
-
+		</p>
+		<figure>
+			<pre>
 	ea 35 42 7e c3 9f 11 ec
 	9d 64 02 42 ac 12 00 02
-
+			</pre>
+		</figure>
+		<p>
 This is a (relatively) //better// way of storing a <strong>UUID</strong>, in terms of storage space.
-
+		</p>
+		<p>
 Just to //drive-this-point-home//, here are more examples —
-
+		</p>
+		<p>
 In the following table you can compare each of the example <strong><abbr title="universally unique identifier">UUID</abbr></strong>s, with their hexadecimal equivalent, and then compare that to the 16 bytes that they are made of.
-
+		</p>
+		<figure>
+			<pre>
 	┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 	┃                                      ┃                                     ┃                                  byte number                                  ┃
 	┃ universally unique identifier (UUID) ┃ hexadecimal (i.e., hyphens removed) ┣━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┳━━━━┫
@@ -215,7 +255,9 @@ In the following table you can compare each of the example <strong><abbr title="
 	├──────────────────────────────────────┼─────────────────────────────────────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┼────┤
 	│ c8f0d7ec-9987-9f17-a7a4-a57f3318fb0e │    c8f0d7ec99879f17a7a4a57f3318fb0e │ c8 │ f0 │ d7 │ ec │ 99 │ 87 │ 9f │ 17 │ a7 │ a4 │ a5 │ 7f │ 33 │ 18 │ fb │ 0e │
 	└──────────────────────────────────────┴─────────────────────────────────────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
-
+			</pre>
+		</figure>
+	</section>
 	<section>
 		<h1>UUID Guide</h1>
 		<p>
